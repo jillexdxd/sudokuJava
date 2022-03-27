@@ -2,16 +2,9 @@ package sudoku;
 
 
 public class Tablero {
-	private int[][] tab, masc;
+	private int[][] tab, masc, jugador;
 
-	public Tablero() {
-		System.out.println("░██████╗██╗░░░██╗██████╗░░█████╗░██╗░░██╗██╗░░░██╗");
-		System.out.println("██╔════╝██║░░░██║██╔══██╗██╔══██╗██║░██╔╝██║░░░██║");
-		System.out.println("╚█████╗░██║░░░██║██║░░██║██║░░██║█████═╝░██║░░░██║");
-		System.out.println("░╚═══██╗██║░░░██║██║░░██║██║░░██║██╔═██╗░██║░░░██║");
-		System.out.println("██████╔╝╚██████╔╝██████╔╝╚█████╔╝██║░╚██╗╚██████╔╝");
-		System.out.println("╚═════╝░░╚═════╝░╚═════╝░░╚════╝░╚═╝░░╚═╝░╚═════╝░");
-		System.out.println();
+	public Tablero() {			
 		
 		// relleno la matriz por cada fila elementos del 1 al 4 que toma el valor c+1 para no tener que controlar que se repitan en la misma fila
 		tab = new int[4][4];
@@ -104,6 +97,16 @@ public class Tablero {
 		
 		//llama al metodo que marca los numeros que se ven
 		pista();
+		
+		
+		//construye el tablero del jugador
+		jugador = new int[4][4];
+		
+		for (int f = 0; f < 4; f++) {
+			for (int c = 0; c < 4; c++){
+				jugador[f][c] = 0;
+			}
+		}
 	}
 	
 	public void pista() {
@@ -125,6 +128,16 @@ public class Tablero {
 	}
 	
 	public void imprimir() {
+		
+		System.out.println("░██████╗██╗░░░██╗██████╗░░█████╗░██╗░░██╗██╗░░░██╗");
+		System.out.println("██╔════╝██║░░░██║██╔══██╗██╔══██╗██║░██╔╝██║░░░██║");
+		System.out.println("╚█████╗░██║░░░██║██║░░██║██║░░██║█████═╝░██║░░░██║");
+		System.out.println("░╚═══██╗██║░░░██║██║░░██║██║░░██║██╔═██╗░██║░░░██║");
+		System.out.println("██████╔╝╚██████╔╝██████╔╝╚█████╔╝██║░╚██╗╚██████╔╝");
+		System.out.println("╚═════╝░░╚═════╝░╚═════╝░░╚════╝░╚═╝░░╚═╝░╚═════╝░");
+		System.out.println();
+	
+		
 		System.out.println("\t\t+---+---+---+---+");
 		for (int f = 0; f < tab.length; f++) {
 			System.out.print("\t\t| ");
@@ -132,10 +145,47 @@ public class Tablero {
 				if (masc[f][c] == 1) {
 					System.out.print(tab[f][c] + " | ");
 				}	else {
-					System.out.print(" " + " | ");
+						if (jugador[f][c]>0) {
+							System.out.print(jugador[f][c] + " | ");
+						} else {
+							System.out.print(" " + " | ");
+						}
 				}
 			}
 			System.out.println("\n\t\t+---+---+---+---+");
 		}
+	}
+	
+	public boolean comprobar() {
+		int cont0 = 0, contV = 0;
+		boolean victoria = false;
+		
+		for (int f = 0; f < tab.length; f++) {
+			for (int c = 0; c < tab[f].length; c++) {
+				//suma a contador de cont0 uno por cada cero en la matriz masc
+				if (masc[f][c] == 0) {
+					cont0++;
+					//comprueba que por cada 0 de la matriz masc existe un numero igual en las dos matrices (tab y jugador)
+					if (tab[f][c] == jugador[f][c]) {
+						contV++;
+					}
+				}
+			}
+		}
+		
+		//si la cantidad de numeros iguales es la misma que de 0 que hay en la matriz, se retorna true
+		if (contV == cont0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	//sirve tanto para borrar como para introducir un numero
+	
+	public void setNum(int fil, int cel, int numero) {	
+		jugador[fil-1][cel-1] = numero;
+			
 	}
 }
