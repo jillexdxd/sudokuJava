@@ -95,26 +95,14 @@ public class Tablero {
 		} while (control);
 		
 		
-		//llama al metodo que marca los numeros que se ven
-		pista();
-		
-		
-		//construye el tablero del jugador
+		//matriz masc y jugador son iniciados a 0 en todos sus valores
+		masc = new int[4][4];
 		jugador = new int[4][4];
 		
 		for (int f = 0; f < 4; f++) {
 			for (int c = 0; c < 4; c++){
-				jugador[f][c] = 0;
-			}
-		}
-	}
-	
-	public void pista() {
-		masc = new int[4][4];
-		
-		for (int f = 0; f < 4; f++) {
-			for (int c = 0; c < 4; c++){
 				masc[f][c] = 0;
+				jugador[f][c] = 0;
 			}
 		}
 		
