@@ -158,7 +158,6 @@ public class Tablero {
 	
 	public boolean comprobar() {
 		int cont0 = 0, contV = 0;
-		boolean victoria = false;
 		
 		for (int f = 0; f < tab.length; f++) {
 			for (int c = 0; c < tab[f].length; c++) {
