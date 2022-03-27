@@ -1,3 +1,0 @@
-module sudoku {
-	exports sudoku;
-}
